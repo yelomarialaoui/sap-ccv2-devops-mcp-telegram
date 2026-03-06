@@ -73,7 +73,7 @@ public class TelegramBot extends TelegramLongPollingBot
     @Override
     public String getBotUsername()
     {
-        return "Yea_visa_chatbot";
+        return "SAP CCV2 DevOpsBot - YEA";
     }
 
     @Override

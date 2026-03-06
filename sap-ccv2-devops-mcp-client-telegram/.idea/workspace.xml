@@ -4,11 +4,57 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1c88c6a-8a60-4ccc-9920-8518e753215c" name="Changes" comment="remove api keys" />
+    <list default="true" id="f1c88c6a-8a60-4ccc-9920-8518e753215c" name="Changes" comment="remove api keys">
+      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/checkstyle-idea.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yea/sap/ccv2/devops/mcp/client/telegram/TelegramBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yea/sap/ccv2/devops/mcp/client/telegram/TelegramBot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/yea/sap/ccv2/devops/mcp/client/SapCcv2DevopsChatbotMcpApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/yea/sap/ccv2/devops/mcp/client/SapCcv2DevopsChatbotMcpApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/yea/sap/ccv2/devops/mcp/client/agents/MyMcpAgent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/yea/sap/ccv2/devops/mcp/client/agents/MyMcpAgent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/yea/sap/ccv2/devops/mcp/client/telegram/TelegramBot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/yea/sap/ccv2/devops/mcp/client/telegram/TelegramBot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/checkstyle-idea.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/copilot.data.migration.ask2agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/SapCcv2DevopsMcpServerApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/config/AppConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/Build.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/BuildProgress.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/BuildProperty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/BuildResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/BuildTask.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/BuildsResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/CreateBuildRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/CreateDeploymentRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/DeploymentInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/DeploymentResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/DeploymentsResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/service/SapCcv2DevopsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/tools/SapCCv2DevopsMcpTool.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/resources/application.properties" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_/home/yelomarialaoui/workspace/projects/perso/sap-ccv2-devops-mcp-telegram/sap-ccv2-devops-mcp-client-telegram" value="3AY4ciGqYW90A71XuNtiRLeC9rm" />
+    </persistenceIdMap>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -66,6 +112,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.SapCcv2DevopsChatbotMcpApplication.executor": "Run",
+    "Maven.sap-ccv2-devops-mcp-client-telegram [clean].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Notification.DisplayName-DoNotAsk-git.bad.executable": "Accept XCode/iOS License to Run Git",
     "Notification.DoNotAsk-git.bad.executable": "true",
@@ -73,10 +120,14 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "yea-dev",
+    "Spring Boot.SapCcv2DevopsChatbotMcpApplication.executor": "Run",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/youssef/wokreSpace/projects/perso/sap-ccv2-devops-mcp/sap-ccv2-devops-mcp-client-telegram/src/main/java/com/yea/sap/ccv2/devops/mcp/client",
     "onboarding.tips.debug.path": "/Users/youssef/wokreSpace/projects/perso/sap-ccv2-devops-mcp/sap-ccv2-devops-mcp-client-telegram/src/main/java/com/yea/Main.java",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "zielu.gittoolbox.app.config.v2"
   }
 }]]></component>
@@ -88,6 +139,34 @@
       <recent name="com.yea.sap.ccv2.devops.mcp.client" />
       <recent name="com.yea.sap.ccv2.devops.mcp.client.telegram" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="SapCcv2DevopsChatbotMcpApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UnknownPolicyInFreeMode" />
+      <module name="sap-ccv2-devops-mcp-client-telegram" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.yea.sap.ccv2.devops.mcp.client.SapCcv2DevopsChatbotMcpApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yea.sap.ccv2.devops.mcp.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.SapCcv2DevopsChatbotMcpApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
