@@ -4,46 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1c88c6a-8a60-4ccc-9920-8518e753215c" name="Changes" comment="remove api keys">
-      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/checkstyle-idea.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="f1c88c6a-8a60-4ccc-9920-8518e753215c" name="Changes" comment="code struture">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yea/sap/ccv2/devops/mcp/client/telegram/TelegramBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yea/sap/ccv2/devops/mcp/client/telegram/TelegramBot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/yea/sap/ccv2/devops/mcp/client/SapCcv2DevopsChatbotMcpApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/yea/sap/ccv2/devops/mcp/client/SapCcv2DevopsChatbotMcpApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/yea/sap/ccv2/devops/mcp/client/agents/MyMcpAgent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/yea/sap/ccv2/devops/mcp/client/agents/MyMcpAgent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/yea/sap/ccv2/devops/mcp/client/telegram/TelegramBot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/yea/sap/ccv2/devops/mcp/client/telegram/TelegramBot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/checkstyle-idea.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/copilot.data.migration.ask2agent.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/SapCcv2DevopsMcpServerApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/config/AppConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/Build.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/BuildProgress.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/BuildProperty.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/BuildResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/BuildTask.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/BuildsResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/CreateBuildRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/CreateDeploymentRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/DeploymentInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/DeploymentResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/model/DeploymentsResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/service/SapCcv2DevopsService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server/tools/SapCCv2DevopsMcpTool.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/resources/application.properties" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -95,12 +61,12 @@
       </RecentBranches>
     </option>
   </component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/yelomarialaoui/sap-ccv2-devops-mcp-telegram.git&quot;,
-    &quot;accountId&quot;: &quot;ae3dea0a-3b4c-48f5-9865-d6a0ed20a023&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/yelomarialaoui/sap-ccv2-devops-mcp-telegram.git",
+    "accountId": "67eb5cd3-f9a2-4c21-b15f-124d99370dd7"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -176,6 +142,23 @@
       <option name="presentableId" value="Default" />
       <updated>1772756254365</updated>
     </task>
+    <task id="LOCAL-00001" summary="code struture">
+      <option name="closed" value="true" />
+      <created>1772816862062</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1772816862062</updated>
+    </task>
+    <task id="LOCAL-00002" summary="code struture">
+      <option name="closed" value="true" />
+      <created>1772816887977</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1772816887978</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -192,7 +175,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="deploy api" />
     <MESSAGE value="remove api keys" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove api keys" />
+    <MESSAGE value="code struture" />
+    <option name="LAST_COMMIT_MESSAGE" value="code struture" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
