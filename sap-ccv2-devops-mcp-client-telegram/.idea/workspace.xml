@@ -73,7 +73,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "yea-dev",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/youssef/wokreSpace/projects/perso/sap-ccv2-devops-mcp/sap-ccv2-devops-mcp-client-telegram/src/main/java/com/yea/sap/ccv2/devops/mcp/client",
     "onboarding.tips.debug.path": "/Users/youssef/wokreSpace/projects/perso/sap-ccv2-devops-mcp/sap-ccv2-devops-mcp-client-telegram/src/main/java/com/yea/Main.java",
@@ -98,6 +98,17 @@
       <updated>1772756254365</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="deploy api" />
