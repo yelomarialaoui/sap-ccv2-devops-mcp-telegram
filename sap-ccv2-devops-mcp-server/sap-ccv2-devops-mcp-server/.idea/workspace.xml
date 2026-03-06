@@ -11,6 +11,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/../.." value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -19,6 +24,31 @@
     &quot;assignee&quot;: &quot;yelomarialaoui&quot;
   }
 }</component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="yea-dev" />
+                    <option name="lastUsedInstant" value="1772812710" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1772812709" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$/../.." />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/yelomarialaoui/sap-ccv2-devops-mcp-telegram.git&quot;,
@@ -41,7 +71,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "yea-dev",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/youssef/wokreSpace/projects/perso/sap-ccv2-devops-mcp/sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/sap/ccv2/devops/mcp/server",
     "onboarding.tips.debug.path": "/Users/youssef/wokreSpace/projects/perso/sap-ccv2-devops-mcp/sap-ccv2-devops-mcp-server/sap-ccv2-devops-mcp-server/src/main/java/com/yea/Main.java"
