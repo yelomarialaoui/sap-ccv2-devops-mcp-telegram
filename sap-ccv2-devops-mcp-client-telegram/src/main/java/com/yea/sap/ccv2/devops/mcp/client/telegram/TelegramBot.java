@@ -76,23 +76,23 @@ public class TelegramBot extends TelegramLongPollingBot {
                 logger.info("Response: {}", botResponse);
                 logger.info("===========================================");
 
-                try {
-                    execute(new SendMessage(chatId.toString(), botResponse));
-                } catch (final TelegramApiException e) {
-                    logger.error("Failed to send Telegram message", e);
-                }
+                sendText(chatId, botResponse, "Failed to send Telegram message");
             } else {
                 logger.warn("Unauthorized user ID attempted access: {}", userId);
 
                 // Send a message to the user telling them to contact the administrator
-                try {
-                    String message = "Your Dear "+firstName +" "+lastName+",\n Your Telegram ID : "+userId+" is not authorized to use this bot. " +
-                        "Please contact the administrator to gain access.";
-                    execute(new SendMessage(chatId.toString(), message));
-                } catch (final TelegramApiException e) {
-                    logger.error("Failed to send unauthorized message to Telegram user", e);
-                }
+                String message = "Your Dear "+firstName +" "+lastName+",\n Your Telegram ID : "+userId+" is not authorized to use this bot. " +
+                    "Please contact the administrator to gain access.";
+                sendText(chatId, message, "Failed to send unauthorized message to Telegram user");
             }
+        }
+    }
+
+    private void sendText(final Long chatId, final String text, final String errorMessage) {
+        try {
+            execute(new SendMessage(chatId.toString(), text));
+        } catch (final TelegramApiException e) {
+            logger.error(errorMessage, e);
         }
     }
 
