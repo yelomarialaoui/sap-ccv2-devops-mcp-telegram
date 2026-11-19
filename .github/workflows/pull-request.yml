@@ -50,7 +50,7 @@ jobs:
           -Dsonar.projectKey=yelomarialaoui_${{ matrix.module }}
 
       - name: Publish JUnit test report
-        if: always() && github.event.pull_request.head.repo.full_name == github.repository
+        if: always() && matrix.module == 'sap-ccv2-devops-mcp-server' && github.event.pull_request.head.repo.full_name == github.repository
         uses: dorny/test-reporter@v1
         with:
           name: JUnit (${{ matrix.module }})

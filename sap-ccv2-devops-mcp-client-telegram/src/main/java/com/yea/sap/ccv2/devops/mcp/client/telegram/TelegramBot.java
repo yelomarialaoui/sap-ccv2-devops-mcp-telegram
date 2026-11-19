@@ -46,7 +46,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         registerBot();
     }
 
-    private void registerBot() {
+    void registerBot() {
         try {
             final TelegramBotsApi api = new TelegramBotsApi(DefaultBotSession.class);
             api.registerBot(this);

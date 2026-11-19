@@ -82,6 +82,11 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.16</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/SapCcv2DevopsChatbotMcpApplication*</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
