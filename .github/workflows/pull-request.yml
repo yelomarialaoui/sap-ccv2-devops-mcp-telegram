@@ -45,5 +45,5 @@ jobs:
           mvn -B verify
           org.sonarsource.scanner.maven:sonar-maven-plugin:5.9.0.7382:sonar
           -Dsonar.host.url=https://sonarcloud.io
-          -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
-          -Dsonar.projectKey=${{ vars.SONAR_ORGANIZATION }}_${{ matrix.module }}
+          -Dsonar.organization=yelomarialaoui
+          -Dsonar.projectKey=yelomarialaoui_${{ matrix.module }}
