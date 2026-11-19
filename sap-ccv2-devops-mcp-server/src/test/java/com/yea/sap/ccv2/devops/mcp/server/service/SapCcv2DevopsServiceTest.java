@@ -3,7 +3,11 @@ package com.yea.sap.ccv2.devops.mcp.server.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yea.sap.ccv2.devops.mcp.server.client.SapCcv2ApiClient;
 import com.yea.sap.ccv2.devops.mcp.server.client.SapCcv2TokenProvider;
+import com.yea.sap.ccv2.devops.mcp.server.model.BuildProgress;
 import com.yea.sap.ccv2.devops.mcp.server.model.BuildsResponse;
+import com.yea.sap.ccv2.devops.mcp.server.model.CreateBuildRequest;
+import com.yea.sap.ccv2.devops.mcp.server.model.CreateDeploymentRequest;
+import com.yea.sap.ccv2.devops.mcp.server.model.DeploymentsResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
@@ -14,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import java.net.UnknownHostException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.header;
@@ -91,6 +96,75 @@ class SapCcv2DevopsServiceTest {
         BuildsResponse response = service.getBuilds(5);
 
         assertEquals(1, response.getCount());
+    }
+
+    @Test
+    void getBuildProgress_shouldCallProgressEndpointOfBuild() {
+        expectTokenRequest();
+
+        server.expect(requestTo("https://portalapi.commerce.ondemand.com/v2/subscriptions/sub-123/builds/build-1/progress"))
+            .andExpect(method(HttpMethod.GET))
+            .andRespond(withSuccess("{\"percentage\":40,\"numberOfTasks\":10}", MediaType.APPLICATION_JSON));
+
+        BuildProgress progress = service.getBuildProgress("build-1");
+
+        assertEquals(40, progress.getPercentage());
+        assertEquals(10, progress.getNumberOfTasks());
+    }
+
+    @Test
+    void createDeployment_shouldPostRequestAndReturnDeploymentCode() {
+        expectTokenRequest();
+
+        CreateDeploymentRequest request = new CreateDeploymentRequest();
+        request.setBuildCode("build-1");
+        request.setEnvironmentCode("dev");
+        request.setDatabaseUpdateMode("NONE");
+        request.setStrategy("ROLLING_UPDATE");
+
+        server.expect(requestTo("https://portalapi.commerce.ondemand.com/v2/subscriptions/sub-123/deployments"))
+            .andExpect(method(HttpMethod.POST))
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("\"buildCode\":\"build-1\"")))
+            .andRespond(withSuccess("{\"code\":\"deploy-9\"}", MediaType.APPLICATION_JSON));
+
+        assertEquals("deploy-9", service.createDeployment(request).getCode());
+    }
+
+    @Test
+    void createDeployment_shouldFailWhenResponseBodyIsEmpty() {
+        expectTokenRequest();
+
+        server.expect(requestTo("https://portalapi.commerce.ondemand.com/v2/subscriptions/sub-123/deployments"))
+            .andExpect(method(HttpMethod.POST))
+            .andRespond(withSuccess("", MediaType.APPLICATION_JSON));
+
+        assertThrows(RuntimeException.class, () -> service.createDeployment(new CreateDeploymentRequest()));
+    }
+
+    @Test
+    void getDeployments_shouldUseTopFiveWhenNotProvided() {
+        expectTokenRequest();
+
+        server.expect(requestTo("https://portalapi.commerce.ondemand.com/v2/subscriptions/sub-123/deployments?$top=5&$skip=0&$count=true&$orderby=createdTimestamp%20desc"))
+            .andExpect(method(HttpMethod.GET))
+            .andRespond(withSuccess("{\"count\":0,\"value\":[]}", MediaType.APPLICATION_JSON));
+
+        DeploymentsResponse response = service.getDeployments(null);
+
+        assertEquals(0, response.getCount());
+    }
+
+    @Test
+    void createBuild_shouldReturnEmptyResponseWhenAcceptedBodyIsNotJson() {
+        expectTokenRequest();
+
+        server.expect(requestTo("https://portalapi.commerce.ondemand.com/v2/subscriptions/sub-123/builds"))
+            .andExpect(method(HttpMethod.POST))
+            .andRespond(withSuccess("not-json-gzip-garbage", MediaType.APPLICATION_JSON));
+
+        CreateBuildRequest request = new CreateBuildRequest("main", "build-name");
+
+        assertNull(service.createBuild(request).getCode());
     }
 
     private void expectTokenRequest() {
