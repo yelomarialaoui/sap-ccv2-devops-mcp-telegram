@@ -3,10 +3,15 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BackgroundAgentGlobalSettings">
+    <option name="selectedModelId" value="auto" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1c88c6a-8a60-4ccc-9920-8518e753215c" name="Changes" comment="code struture">
-      <change afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+    <list default="true" id="f1c88c6a-8a60-4ccc-9920-8518e753215c" name="Changes" comment="refactor login">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/src/test/java/com/yea/sap/ccv2/devops/mcp/server/service/SapCcv2DevopsServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sap-ccv2-devops-mcp-server/src/test/java/com/yea/sap/ccv2/devops/mcp/server/service/SapCcv2DevopsServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,6 +20,8 @@
   </component>
   <component name="CopilotPersistence">
     <persistenceIdMap>
+      <entry key="_/Users/youssef/wokreSpace/projects/perso/sap-ccv2-devops-mcp/sap-ccv2-devops-mcp-client-telegram" value="3Aa8zOEEGdXfycobHbPfDs6KSD6" />
+      <entry key="_/Users/youssef/workSpace/projects/perso/sap-ccv2-devops-mcp/sap-ccv2-devops-mcp-client-telegram" value="3MHpXdn2LEIPvvU2kMTfCNb23Zn" />
       <entry key="_/home/yelomarialaoui/workspace/projects/perso/sap-ccv2-devops-mcp-telegram/sap-ccv2-devops-mcp-client-telegram" value="3AY4ciGqYW90A71XuNtiRLeC9rm" />
     </persistenceIdMap>
   </component>
@@ -57,16 +64,31 @@
       </RecentBranches>
     </option>
   </component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/yelomarialaoui/sap-ccv2-devops-mcp-telegram.git",
-    "accountId": "67eb5cd3-f9a2-4c21-b15f-124d99370dd7"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/yelomarialaoui/sap-ccv2-devops-mcp-telegram.git&quot;,
+    &quot;accountId&quot;: &quot;ae3dea0a-3b4c-48f5-9865-d6a0ed20a023&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="3AY4ciGqYW90A71XuNtiRLeC9rm" />
+  <component name="ProjectSessionTemplates">
+    <option name="panelTemplate">
+      <template>
+        <option name="modeId" value="Agent" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_id" />
+            <option name="modelValue" value="auto" />
+          </model>
+        </option>
+        <option name="targetType" value="BACKGROUND" />
+        <option name="worktreeMode" value="WORKSPACE" />
+      </template>
+    </option>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -81,11 +103,19 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.SapCcv2DevopsChatbotMcpApplication.executor": "Run",
-    "git-widget-placeholder": "main",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
+    "git-widget-placeholder": "yea-dev-2",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/youssef/wokreSpace/projects/perso/sap-ccv2-devops-mcp/sap-ccv2-devops-mcp-client-telegram/src/main/java/com/yea/sap/ccv2/devops/mcp/client",
+    "last_opened_file_path": "/Users/youssef/workSpace/projects/perso/sap-ccv2-devops-mcp/sap-ccv2-devops-mcp-client-telegram",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "/Users/youssef/wokreSpace/projects/perso/sap-ccv2-devops-mcp/sap-ccv2-devops-mcp-client-telegram/src/main/java/com/yea/Main.java",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
@@ -126,7 +156,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.25134.95" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.25134.95" />
       </set>
     </attachedChunks>
   </component>
@@ -162,8 +193,27 @@
       <option name="project" value="LOCAL" />
       <updated>1772817955115</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="new auth SAp CCV2">
+      <option name="closed" value="true" />
+      <created>1795098192241</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1795098192241</updated>
+    </task>
+    <task id="LOCAL-00005" summary="refactor login">
+      <option name="closed" value="true" />
+      <created>1795104168915</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1795104168915</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -180,7 +230,9 @@
     <MESSAGE value="deploy api" />
     <MESSAGE value="remove api keys" />
     <MESSAGE value="code struture" />
-    <option name="LAST_COMMIT_MESSAGE" value="code struture" />
+    <MESSAGE value="new auth SAp CCV2" />
+    <MESSAGE value="refactor login" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor login" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
