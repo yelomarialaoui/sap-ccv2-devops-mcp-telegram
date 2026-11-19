@@ -32,7 +32,8 @@ class MyMcpAgentTest {
     void constructorRegistersToolCallbacksAndSystemPrompt() {
         ChatClient.Builder builder = mock(ChatClient.Builder.class, RETURNS_SELF);
         when(builder.build()).thenReturn(mock(ChatClient.class));
-        ToolCallbackProvider tools = toolsProvider();
+        ToolCallbackProvider tools = mock(ToolCallbackProvider.class);
+        when(tools.getToolCallbacks()).thenReturn(new ToolCallback[] {mock(ToolCallback.class)});
 
         new MyMcpAgent(builder, mock(ChatMemory.class), tools);
 
