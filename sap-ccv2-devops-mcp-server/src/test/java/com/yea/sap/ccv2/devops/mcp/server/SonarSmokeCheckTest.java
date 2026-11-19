@@ -5,11 +5,8 @@ import org.junit.jupiter.api.Test;
 class SonarSmokeCheckTest {
 
     @Test
-    void sonarShouldReportIssues() {
-        String password = "P@ssw0rd123";
-        try {
-            Integer.parseInt("not-a-number");
-        } catch (NumberFormatException e) {
-        }
+    void sonarShouldReportBlockingBug() {
+        String value = null;
+        System.out.println(value.length());
     }
 }
