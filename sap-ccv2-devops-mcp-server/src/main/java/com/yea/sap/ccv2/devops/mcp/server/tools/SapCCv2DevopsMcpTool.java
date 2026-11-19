@@ -10,15 +10,11 @@ import com.yea.sap.ccv2.devops.mcp.server.model.DeploymentsResponse;
 import com.yea.sap.ccv2.devops.mcp.server.service.SapCcv2DevopsService;
 import org.springaicommunity.mcp.annotation.McpArg;
 import org.springaicommunity.mcp.annotation.McpTool;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SapCCv2DevopsMcpTool
 {
-
-    @Value("${sap.ccv2.api.applicationCode}")
-    private String applicationCode;
 
     SapCcv2DevopsService sapCcv2DevopsService;
 
@@ -39,7 +35,7 @@ public class SapCCv2DevopsMcpTool
         @McpArg(description = "The name of the build (required)")
         final String name
     ) {
-        CreateBuildRequest request = new CreateBuildRequest(applicationCode, branch, name);
+        CreateBuildRequest request = new CreateBuildRequest(branch, name);
         return sapCcv2DevopsService.createBuild(request);
     }
 

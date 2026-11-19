@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateBuildRequest {
     
-    @JsonProperty("applicationCode")
-    private String applicationCode;
-    
     @JsonProperty("branch")
     private String branch;
     
@@ -22,21 +19,7 @@ public class CreateBuildRequest {
         this.name = name;
     }
     
-    public CreateBuildRequest(String applicationCode, String branch, String name) {
-        this.applicationCode = applicationCode;
-        this.branch = branch;
-        this.name = name;
-    }
-    
     // Getters and Setters
-    public String getApplicationCode() {
-        return applicationCode;
-    }
-    
-    public void setApplicationCode(String applicationCode) {
-        this.applicationCode = applicationCode;
-    }
-    
     public String getBranch() {
         return branch;
     }
