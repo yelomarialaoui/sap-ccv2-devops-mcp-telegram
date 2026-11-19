@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class SapCCv2DevopsMcpTool
 {
 
-    SapCcv2DevopsService sapCcv2DevopsService;
+    private final SapCcv2DevopsService sapCcv2DevopsService;
 
     public SapCCv2DevopsMcpTool(SapCcv2DevopsService sapCcv2DevopsService) {
         this.sapCcv2DevopsService = sapCcv2DevopsService;

@@ -1,12 +1,13 @@
 package com.yea.sap.ccv2.devops.mcp.server.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yea.sap.ccv2.devops.mcp.server.client.SapCcv2ApiClient;
+import com.yea.sap.ccv2.devops.mcp.server.client.SapCcv2TokenProvider;
 import com.yea.sap.ccv2.devops.mcp.server.model.BuildsResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,27 +26,30 @@ class SapCcv2DevopsServiceTest {
 
     private SapCcv2DevopsService service;
     private MockRestServiceServer server;
+    private RestTemplate restTemplate;
 
     @BeforeEach
     void setUp() {
-        RestTemplate restTemplate = new RestTemplate();
+        restTemplate = new RestTemplate();
         server = MockRestServiceServer.bindTo(restTemplate).build();
-        service = new SapCcv2DevopsService(restTemplate, new ObjectMapper());
+        service = buildService("https://auth.example.com/oauth2/token");
+    }
 
-        ReflectionTestUtils.setField(service, "subscriptionCode", "sub-123");
-        ReflectionTestUtils.setField(service, "clientId", "client-123");
-        ReflectionTestUtils.setField(service, "clientSecret", "secret-123");
-        ReflectionTestUtils.setField(service, "tokenEndpoint", "https://auth.example.com/oauth2/token");
-        ReflectionTestUtils.setField(service, "resource", "https://portalapi.commerce.ondemand.com");
+    private SapCcv2DevopsService buildService(String tokenEndpoint) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        SapCcv2TokenProvider tokenProvider = new SapCcv2TokenProvider(
+            restTemplate, objectMapper, "client-123", "secret-123", tokenEndpoint, "https://portalapi.commerce.ondemand.com");
+        SapCcv2ApiClient apiClient = new SapCcv2ApiClient(restTemplate, objectMapper, tokenProvider);
+        return new SapCcv2DevopsService(apiClient, "sub-123");
     }
 
     @Test
     void getBuilds_shouldParseJsonBodyEvenWhenContentTypeIsTextHtml() {
         expectTokenRequest();
 
-        server.expect(requestTo("https://portalapi.commerce.ondemand.com/v2/subscriptions/sub-123/builds?$top=5&$skip=0&$statusNot=DELETED&$count=true&$orderby=buildStartTimestamp%20desc"))
+        server.expect(requestTo("https://portalapi.commerce.ondemand.com/v2/subscriptions/sub-123/builds?$top=5&$skip=0&statusNot=DELETED&$count=true&$orderby=buildStartTimestamp%20desc"))
             .andExpect(method(HttpMethod.GET))
-            .andExpect(header("Authorization", "Bearer access-token-abc"))
+            .andExpect(header("x-approuter-authorization", "Bearer access-token-abc"))
             .andRespond(withSuccess("{\"count\":1,\"value\":[]}", MediaType.TEXT_HTML));
 
         BuildsResponse response = service.getBuilds(5);
@@ -58,7 +62,7 @@ class SapCcv2DevopsServiceTest {
     void getBuilds_shouldFailWithClearMessageWhenBodyIsNotJson() {
         expectTokenRequest();
 
-        server.expect(requestTo("https://portalapi.commerce.ondemand.com/v2/subscriptions/sub-123/builds?$top=5&$skip=0&$statusNot=DELETED&$count=true&$orderby=buildStartTimestamp%20desc"))
+        server.expect(requestTo("https://portalapi.commerce.ondemand.com/v2/subscriptions/sub-123/builds?$top=5&$skip=0&statusNot=DELETED&$count=true&$orderby=buildStartTimestamp%20desc"))
             .andExpect(method(HttpMethod.GET))
             .andRespond(withSuccess("<html>error</html>", MediaType.TEXT_HTML));
 
@@ -69,7 +73,7 @@ class SapCcv2DevopsServiceTest {
 
     @Test
     void getBuilds_shouldFallbackToPortalTokenEndpointWhenApiYaasHostCannotBeResolved() {
-        ReflectionTestUtils.setField(service, "tokenEndpoint", "https://api.yaas.io/hybris/oauth2/v1/token");
+        service = buildService("https://api.yaas.io/hybris/oauth2/v1/token");
 
         server.expect(requestTo("https://api.yaas.io/hybris/oauth2/v1/token"))
             .andExpect(method(HttpMethod.POST))
@@ -79,9 +83,9 @@ class SapCcv2DevopsServiceTest {
             .andExpect(method(HttpMethod.POST))
             .andRespond(withSuccess("{\"access_token\":\"access-token-abc\",\"expires_in\":300}", MediaType.APPLICATION_JSON));
 
-        server.expect(requestTo("https://portalapi.commerce.ondemand.com/v2/subscriptions/sub-123/builds?$top=5&$skip=0&$statusNot=DELETED&$count=true&$orderby=buildStartTimestamp%20desc"))
+        server.expect(requestTo("https://portalapi.commerce.ondemand.com/v2/subscriptions/sub-123/builds?$top=5&$skip=0&statusNot=DELETED&$count=true&$orderby=buildStartTimestamp%20desc"))
             .andExpect(method(HttpMethod.GET))
-            .andExpect(header("Authorization", "Bearer access-token-abc"))
+            .andExpect(header("x-approuter-authorization", "Bearer access-token-abc"))
             .andRespond(withSuccess("{\"count\":1,\"value\":[]}", MediaType.APPLICATION_JSON));
 
         BuildsResponse response = service.getBuilds(5);
