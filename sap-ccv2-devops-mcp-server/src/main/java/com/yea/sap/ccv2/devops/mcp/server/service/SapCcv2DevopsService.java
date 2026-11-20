@@ -1,11 +1,14 @@
 package com.yea.sap.ccv2.devops.mcp.server.service;
 
 import com.yea.sap.ccv2.devops.mcp.server.client.SapCcv2ApiClient;
+import com.yea.sap.ccv2.devops.mcp.server.model.Build;
 import com.yea.sap.ccv2.devops.mcp.server.model.BuildProgress;
 import com.yea.sap.ccv2.devops.mcp.server.model.BuildResponse;
 import com.yea.sap.ccv2.devops.mcp.server.model.BuildsResponse;
 import com.yea.sap.ccv2.devops.mcp.server.model.CreateBuildRequest;
 import com.yea.sap.ccv2.devops.mcp.server.model.CreateDeploymentRequest;
+import com.yea.sap.ccv2.devops.mcp.server.model.DeployedBuild;
+import com.yea.sap.ccv2.devops.mcp.server.model.DeploymentInfo;
 import com.yea.sap.ccv2.devops.mcp.server.model.DeploymentResponse;
 import com.yea.sap.ccv2.devops.mcp.server.model.DeploymentsResponse;
 import org.slf4j.Logger;
@@ -13,6 +16,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class SapCcv2DevopsService
@@ -58,6 +68,13 @@ public class SapCcv2DevopsService
         return apiClient.readJson(apiClient.send(HttpMethod.GET, url, null, "retrieving builds"), BuildsResponse.class, "retrieving builds");
     }
 
+    public Build getBuild(String buildCode) {
+        URI url = UriComponentsBuilder.fromUriString(subscriptionUrl(SAP_PORTAL_API_BUILD_URL))
+            .pathSegment("{buildCode}").encode().buildAndExpand(buildCode).toUri();
+        return apiClient.readJson(apiClient.send(HttpMethod.GET, url, null, "retrieving build details"),
+            Build.class, "retrieving build details");
+    }
+
     public BuildProgress getBuildProgress(String buildCode) {
         logger.info("getBuildProgress request: subscriptionCode={}, buildCode={}", subscriptionCode, buildCode);
 
@@ -77,12 +94,47 @@ public class SapCcv2DevopsService
         return apiClient.readJson(apiClient.send(HttpMethod.POST, url, request, "creating deployment"), DeploymentResponse.class, "creating deployment");
     }
 
-    public DeploymentsResponse getDeployments(Integer top) {
-        int effectiveTop = top != null ? top : DEFAULT_TOP;
-        logger.info("getDeployments request: subscriptionCode={}, top={}", subscriptionCode, effectiveTop);
+    public DeployedBuild getDeployedBuild(String environmentCode) {
+        if (!StringUtils.hasText(environmentCode)) {
+            throw new IllegalArgumentException("An SAP environment code is required to retrieve a deployed build.");
+        }
+        List<DeploymentInfo> deployments = getDeployments(1, environmentCode, "DEPLOYED").getValue();
+        if (deployments == null) {
+            throw new IllegalStateException("SAP CCv2 did not return a deployment list.");
+        }
+        if (deployments.isEmpty()) {
+            return new DeployedBuild(environmentCode, null, null, null, List.of());
+        }
+        DeploymentInfo deployment = deployments.getFirst();
+        String buildCode = deployment.getBuildCode();
+        if (!StringUtils.hasText(buildCode)) {
+            throw new IllegalStateException("SAP CCv2 did not return a build code for the deployment.");
+        }
+        Build build = getBuild(buildCode);
+        return new DeployedBuild(environmentCode, buildCode, build.getBranch(), deployment.getDeployedTimestamp(),
+            build.getProperties());
+    }
 
-        String url = subscriptionUrl(SAP_PORTAL_API_DEPLOY_URL)
-            + "?$top=" + effectiveTop + "&$skip=0&$count=true&$orderby=createdTimestamp desc";
+    public DeploymentsResponse getDeployments(Integer top, String environmentCode, String status) {
+        int effectiveTop = top != null ? top : DEFAULT_TOP;
+        logger.info("getDeployments request: subscriptionCode={}, top={}, environmentCode={}, status={}",
+            subscriptionCode, effectiveTop, environmentCode, status);
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(subscriptionUrl(SAP_PORTAL_API_DEPLOY_URL))
+            .queryParam("$top", effectiveTop)
+            .queryParam("$skip", 0)
+            .queryParam("$count", true)
+            .queryParam("$orderby", "DEPLOYED".equals(status) ? "deployedTimestamp desc" : "createdTimestamp desc");
+        Map<String, String> filters = new HashMap<>();
+        if (StringUtils.hasText(environmentCode)) {
+            builder.queryParam("environmentCode", "{environmentCode}");
+            filters.put("environmentCode", environmentCode);
+        }
+        if (StringUtils.hasText(status)) {
+            builder.queryParam("status", "{status}");
+            filters.put("status", status);
+        }
+        URI url = builder.encode().buildAndExpand(filters).toUri();
         return apiClient.readJson(apiClient.send(HttpMethod.GET, url, null, "retrieving deployments"), DeploymentsResponse.class, "retrieving deployments");
     }
 }

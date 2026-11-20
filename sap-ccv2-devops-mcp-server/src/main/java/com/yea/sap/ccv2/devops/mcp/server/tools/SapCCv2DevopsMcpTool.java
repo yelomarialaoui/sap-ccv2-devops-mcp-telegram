@@ -1,10 +1,12 @@
 package com.yea.sap.ccv2.devops.mcp.server.tools;
 
+import com.yea.sap.ccv2.devops.mcp.server.model.Build;
 import com.yea.sap.ccv2.devops.mcp.server.model.BuildProgress;
 import com.yea.sap.ccv2.devops.mcp.server.model.BuildResponse;
 import com.yea.sap.ccv2.devops.mcp.server.model.BuildsResponse;
 import com.yea.sap.ccv2.devops.mcp.server.model.CreateBuildRequest;
 import com.yea.sap.ccv2.devops.mcp.server.model.CreateDeploymentRequest;
+import com.yea.sap.ccv2.devops.mcp.server.model.DeployedBuild;
 import com.yea.sap.ccv2.devops.mcp.server.model.DeploymentResponse;
 import com.yea.sap.ccv2.devops.mcp.server.model.DeploymentsResponse;
 import com.yea.sap.ccv2.devops.mcp.server.service.SapCcv2DevopsService;
@@ -52,6 +54,17 @@ public class SapCCv2DevopsMcpTool
     }
 
     @McpTool(
+        name = "Get SAP Commerce Cloud Build Details",
+        description = "Gets one build by its code, including its source branch and the properties returned by SAP."
+    )
+    public Build getBuild(
+        @McpArg(description = "The exact SAP build code, for example the buildCode returned by a deployment.")
+        final String buildCode
+    ) {
+        return sapCcv2DevopsService.getBuild(buildCode);
+    }
+
+    @McpTool(
         name = "Get SAP Commerce Cloud Build Progress",
         description = "This API operation and its parameters support the request to get SAP Commerce Cloud build progress. " +
                      "GET https://portalapi.commerce.ondemand.com/v2/subscriptions/{subscriptionCode}/builds/{buildCode}/progress"
@@ -93,15 +106,33 @@ public class SapCCv2DevopsMcpTool
     }
 
     @McpTool(
+        name = "Get SAP Commerce Cloud Deployed Build",
+        description = "Gets the latest deployed build in one environment, with separate fields for its buildCode, " +
+            "source branch from build details, deployedTimestamp from the deployment, and available build properties. " +
+            "A missing buildCode means no deployed build was found; a missing branch must not be inferred."
+    )
+    public DeployedBuild getDeployedBuild(
+        @McpArg(description = "SAP environment code, for example d1, s1 or p1.")
+        final String environmentCode
+    ) {
+        return sapCcv2DevopsService.getDeployedBuild(environmentCode);
+    }
+
+    @McpTool(
         name = "Get SAP Commerce Cloud Deployments",
-        description = "This API operation retrieves all deployments associated with the subscription. " +
-            "You can filter by environmentCode, buildCode, status, and limit the number of results."
+        description = "Lists deployments for a subscription, optionally filtered by environment code and status. " +
+            "For the latest deployed build in an environment, use its environmentCode, status DEPLOYED, and top 1. " +
+            "Results with the DEPLOYED filter are ordered by deployedTimestamp descending."
     )
     public DeploymentsResponse getDeployments(
-        @McpArg(description = "Optional. Number of latest deployments to retrieve. Defaults to 5.")
-        final Integer top
+        @McpArg(description = "Number of deployments to retrieve. Defaults to 5.", required = false)
+        final Integer top,
+        @McpArg(description = "SAP environment code, for example d1, s1 or p1.", required = false)
+        final String environmentCode,
+        @McpArg(description = "SAP deployment status: SCHEDULED, DEPLOYING, DEPLOYED, UNDEPLOYED or FAIL.", required = false)
+        final String status
     ) {
-        return sapCcv2DevopsService.getDeployments(top);
+        return sapCcv2DevopsService.getDeployments(top, environmentCode, status);
     }
 }
 
