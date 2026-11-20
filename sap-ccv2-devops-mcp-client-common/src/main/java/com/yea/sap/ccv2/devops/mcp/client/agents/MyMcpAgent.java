@@ -341,5 +341,12 @@ public class MyMcpAgent
         return chatClient.prompt().user(message).call().content();
     }
 
+    public String chat(final String message, final String conversationId)
+    {
+        return chatClient.prompt()
+            .advisors(advisor -> advisor.param(ChatMemory.CONVERSATION_ID, conversationId))
+            .user(message).call().content();
+    }
+
  
 }

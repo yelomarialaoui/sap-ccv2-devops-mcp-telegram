@@ -1,16 +1,20 @@
 # sap-ccv2-devops-mcp-telegram
 
-Monorepo de deux modules Spring Boot qui permettent de piloter SAP Cloud Controller v2 (CCv2) depuis Telegram, via un agent IA.
+Monorepo permettant de piloter SAP Cloud Controller v2 (CCv2) depuis Telegram ou Slack, via un agent IA.
 
 | Module | Rôle |
 |---|---|
 | [sap-ccv2-devops-mcp-server](./sap-ccv2-devops-mcp-server/) | Serveur MCP (port `8086`). Expose les outils CCv2 : créer/lister des builds, suivre leur progression, créer/lister des déploiements. Appelle l'API CCv2 avec un token OAuth du technical user. |
 | [sap-ccv2-devops-mcp-client-telegram](./sap-ccv2-devops-mcp-client-telegram/) | Bot Telegram + agent Spring AI (OpenAI). Se connecte au serveur MCP et répond uniquement aux identifiants Telegram autorisés. |
+| [sap-ccv2-devops-mcp-client-slack](./sap-ccv2-devops-mcp-client-slack/) | Bot Slack indépendant en Socket Mode, limité aux messages directs des utilisateurs autorisés. |
+| [sap-ccv2-devops-mcp-client-common](./sap-ccv2-devops-mcp-client-common/) | Agent Spring AI partagé par les deux clients. |
 
 ## Architecture
 
 ```
-Telegram ──► Client (Spring AI agent) ──MCP (streamable HTTP)──► Serveur MCP ──OAuth──► SAP CCv2 API
+Telegram ──► Client Telegram ──┐
+                              ├──► Agent Spring AI ──MCP──► Serveur MCP ──OAuth──► SAP CCv2 API
+Slack ─────► Client Slack ─────┘
 ```
 
 ## Prérequis
@@ -19,7 +23,8 @@ Telegram ──► Client (Spring AI agent) ──MCP (streamable HTTP)──►
 - Maven 3.9+
 - Un technical user CCv2 (client ID / secret) et le code de souscription
 - Une clé API OpenAI
-- Un bot Telegram (token fourni par `@BotFather`)
+- Pour Telegram : un bot (token fourni par `@BotFather`)
+- Pour Slack : une application Slack installée dans votre espace de travail
 
 ## Configuration
 
@@ -28,6 +33,7 @@ Les secrets ne sont jamais versionnés. Chaque module lit un fichier `secrets.pr
 ```bash
 cp sap-ccv2-devops-mcp-server/secrets.properties.example sap-ccv2-devops-mcp-server/secrets.properties
 cp sap-ccv2-devops-mcp-client-telegram/secrets.properties.example sap-ccv2-devops-mcp-client-telegram/secrets.properties
+cp sap-ccv2-devops-mcp-client-slack/secrets.properties.example sap-ccv2-devops-mcp-client-slack/secrets.properties
 ```
 
 ### Serveur (`sap-ccv2-devops-mcp-server/secrets.properties`)
@@ -42,7 +48,7 @@ cp sap-ccv2-devops-mcp-client-telegram/secrets.properties.example sap-ccv2-devop
 
 Changer de projet hybris revient à modifier `subscriptionCode`, et si besoin le technical user (`clientId` / `clientSecret`) associé à ce projet.
 
-### Client (`sap-ccv2-devops-mcp-client-telegram/secrets.properties`)
+### Client Telegram (`sap-ccv2-devops-mcp-client-telegram/secrets.properties`)
 
 | Clé | Description |
 |---|---|
@@ -52,9 +58,32 @@ Changer de projet hybris revient à modifier `subscriptionCode`, et si besoin le
 
 L'URL du serveur MCP est définie dans `spring.ai.mcp.client.streamable-http.connections.mymcpserver.url` (client `application.properties`).
 
+### Client Slack (`sap-ccv2-devops-mcp-client-slack/secrets.properties`)
+
+1. Dans [Slack API](https://api.slack.com/apps), créez une application et activez **Socket Mode**.
+2. Créez un token d'application `xapp-` avec le scope `connections:write`.
+3. Dans **OAuth & Permissions**, ajoutez les scopes du bot `chat:write` et `im:history`. Dans **Event Subscriptions**, activez les événements et abonnez le bot à `message.im`.
+4. Dans **App Home**, autorisez les utilisateurs à envoyer des messages au bot. Installez l'application dans l'espace de travail et récupérez son token `xoxb-`.
+5. Renseignez les valeurs suivantes dans le fichier de secrets :
+
+| Clé | Description |
+|---|---|
+| `spring.ai.openai.api-key` | Clé API OpenAI |
+| `slack.app-token` | Token d'application `xapp-` |
+| `slack.bot-token` | Token du bot `xoxb-` |
+| `slack.allowed-user-ids` | Identifiants Slack des utilisateurs autorisés, séparés par des virgules |
+
+L'URL MCP est configurable dans `spring.ai.mcp.client.streamable-http.connections.mymcpserver.url`. Les messages des canaux et des bots sont ignorés ; les conversations Slack sont séparées par utilisateur et par conversation directe.
+
 ## Lancer en local
 
-Démarrer d'abord le serveur, puis le client :
+D'abord, depuis la racine du dépôt, installez l'agent partagé dans le dépôt Maven local :
+
+```bash
+mvn -B -pl sap-ccv2-devops-mcp-client-common -am install
+```
+
+Démarrez ensuite le serveur, puis un ou les deux clients dans des terminaux séparés :
 
 ```bash
 cd sap-ccv2-devops-mcp-server
@@ -63,6 +92,11 @@ mvn spring-boot:run
 
 ```bash
 cd sap-ccv2-devops-mcp-client-telegram
+mvn spring-boot:run
+```
+
+```bash
+cd sap-ccv2-devops-mcp-client-slack
 mvn spring-boot:run
 ```
 
@@ -78,21 +112,21 @@ mvn spring-boot:run
 
 ## Tests et qualité
 
-Chaque module se compile et se teste avec :
+Depuis la racine, les modules se compilent et se testent ensemble avec :
 
 ```bash
 mvn -B verify
 ```
 
 - Tests unitaires JUnit 5 et Mockito.
-- Couverture Jacoco avec un seuil minimal de 80 % sur les lignes (le modèle de données `server/model` est exclu côté serveur).
+- Couverture Jacoco avec un seuil minimal de 80 % sur les lignes pour les modules Telegram et serveur (le modèle de données `server/model` est exclu côté serveur).
 - Rapports : `target/surefire-reports/` (tests) et `target/site/jacoco/` (couverture).
 
 ## CI sur les Pull Requests
 
-Le workflow [pull-request.yml](./.github/workflows/pull-request.yml) s'exécute sur chaque PR, pour les deux modules :
+Le workflow [pull-request.yml](./.github/workflows/pull-request.yml) s'exécute sur chaque PR, pour le serveur et les deux clients :
 
-1. `mvn -B verify` (tests et contrôle de couverture)
+1. `mvn -B -f ../pom.xml -pl <module> -am verify` (tests et contrôle de couverture lorsque configuré)
 2. Publication des résultats JUnit dans la PR (module serveur, PR depuis le même dépôt)
 3. Analyse SonarCloud (PR depuis le même dépôt)
 
