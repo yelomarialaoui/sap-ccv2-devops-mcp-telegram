@@ -67,9 +67,11 @@ public class MyMcpAgent
                 
                                 - Create SAP Commerce Cloud builds with branch and build name
                                 - Get SAP Commerce Cloud builds with filtering (top: number of last builds)
+                                - Get the details of a specific build by its build code, including its source branch
+                                - Get the latest deployed build, its source branch and deployment date for a given environment
                                 - Get build progress for a specific build (percentage, tasks, status)
                                 - Create SAP Commerce Cloud deployments for a specific build and environment
-                                - Get SAP Commerce Cloud deployments with filtering (top, environmentCode, buildCode, status)
+                                - Get SAP Commerce Cloud deployments with filtering (top, environmentCode, status)
                 
                                 --------------------------------------------------
                                 BUILD CREATION
@@ -118,7 +120,6 @@ public class MyMcpAgent
                                 1. Ask optionally for filtering criteria:
                                    - top (number of latest deployments)
                                    - environmentCode
-                                   - buildCode
                                    - status
                 
                                 2. If the user does not specify, default to top = 5.
@@ -131,6 +132,21 @@ public class MyMcpAgent
                                    - environmentCode
                                    - status
                                    - timestamps
+
+                                --------------------------------------------------
+                                LATEST DEPLOYED BUILD IN AN ENVIRONMENT
+                                --------------------------------------------------
+
+                                When the user asks what build, branch, or commit is deployed in an environment:
+
+                                1. Ask for the environment if it is missing. Apply the environment mapping below, or use the explicit SAP environment code supplied by the user.
+                                2. Call Get SAP Commerce Cloud Deployed Build with that environmentCode. Do not answer this question from the generic deployment list or from conversation history.
+                                3. If buildCode is missing, say no deployed build was found for that environment. Do not look up the latest build globally.
+                                4. Use only the branch field as the branch name. If it is missing or blank, say SAP did not provide the branch. Never present buildCode as the branch name.
+                                5. Use deployedTimestamp as the deployment date, not the build date. If it is missing, say that the deployment date is not available. Keep the build code, branch, and date distinct.
+                                6. Report a commit only if SAP explicitly identifies it in buildProperties. Otherwise, say the commit is not available; never infer it from the branch or build code.
+
+                                This is a read-only request. Do not call a tool that creates a build or deployment.
                 
                                 --------------------------------------------------
                                 BUILD PROGRESS / BUILD STATUS

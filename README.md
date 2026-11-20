@@ -106,9 +106,13 @@ mvn spring-boot:run
 |---|---|
 | Create SAP Commerce Cloud Build | Lance un build |
 | Get SAP Commerce Cloud Builds | Liste les builds |
+| Get SAP Commerce Cloud Build Details | Récupère la branche et les propriétés du build à partir de son code |
 | Get SAP Commerce Cloud Build Progress | Suit la progression d'un build |
 | Create SAP Commerce Cloud Deployment | Lance un déploiement |
-| Get SAP Commerce Cloud Deployments | Liste les déploiements |
+| Get SAP Commerce Cloud Deployments | Liste les déploiements, avec filtres par environnement et statut |
+| Get SAP Commerce Cloud Deployed Build | Donne le code du build, la branche source et la date du dernier déploiement d'un environnement |
+
+Depuis Slack ou Telegram, demandez par exemple « Quelle branche est déployée en prod, et depuis quand ? ». L'outil retrouve le `buildCode` du dernier déploiement `DEPLOYED` de l'environnement, puis consulte le détail du build pour obtenir sa branche. La date provient du déploiement, et le commit est indiqué uniquement si SAP le fournit dans les propriétés du build.
 
 ## Tests et qualité
 

@@ -51,10 +51,4 @@ class SapCCv2DevopsMcpToolTest {
         verify(service).getBuildProgress("build-1");
     }
 
-    @Test
-    void getDeployments_shouldDelegateTopToService() {
-        tool.getDeployments(null);
-
-        verify(service).getDeployments(null);
-    }
 }

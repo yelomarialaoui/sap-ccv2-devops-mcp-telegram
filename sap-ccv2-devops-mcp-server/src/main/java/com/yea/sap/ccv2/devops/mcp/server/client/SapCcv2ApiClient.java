@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
@@ -38,6 +39,10 @@ public class SapCcv2ApiClient {
     }
 
     public String send(HttpMethod method, String url, Object body, String operation) {
+        return send(method, restTemplate.getUriTemplateHandler().expand(url), body, operation);
+    }
+
+    public String send(HttpMethod method, URI url, Object body, String operation) {
         logger.debug("Request URL: {}", url);
         HttpEntity<Object> entity = new HttpEntity<>(body, getHeaders());
         try {
