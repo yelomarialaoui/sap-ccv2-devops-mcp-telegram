@@ -126,9 +126,9 @@ mvn -B verify
 
 Le workflow [pull-request.yml](./.github/workflows/pull-request.yml) s'exécute sur chaque PR, pour le serveur et les deux clients :
 
-1. `mvn -B -f ../pom.xml -pl <module> -am verify` (tests et contrôle de couverture lorsque configuré)
-2. Publication des résultats JUnit dans la PR (module serveur, PR depuis le même dépôt)
-3. Analyse SonarCloud (PR depuis le même dépôt)
+1. Build Maven avec les dépendances du module (`-pl <module> -am`) : `verify` pour les PR de forks, `install` pour les PR du même dépôt. Les deux exécutent les tests et les contrôles de couverture configurés.
+2. Analyse SonarCloud lancée depuis le dossier du module, sans filtrer le réacteur Maven, pour les PR du même dépôt.
+3. Publication des résultats JUnit dans la PR (module serveur, PR depuis le même dépôt).
 
 Secret GitHub requis pour l'analyse Sonar : `SONAR_TOKEN`. L'organisation SonarCloud (`yelomarialaoui`) est définie directement dans le workflow.
 
