@@ -4,15 +4,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.RETURNS_SELF;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.ToolCallbackProvider;
+import java.util.function.Consumer;
 
 class MyMcpAgentTest {
 
@@ -39,6 +42,29 @@ class MyMcpAgentTest {
 
         verify(builder).defaultSystem(anyString());
         verify(builder).defaultToolCallbacks(tools);
+    }
+
+    @Test
+    void chatUsesTheProvidedConversationId() {
+        ChatClient.Builder builder = mock(ChatClient.Builder.class, RETURNS_SELF);
+        ChatClient client = mock(ChatClient.class);
+        ChatClient.ChatClientRequestSpec request = mock(ChatClient.ChatClientRequestSpec.class, RETURNS_SELF);
+        ChatClient.AdvisorSpec advisor = mock(ChatClient.AdvisorSpec.class);
+        ChatClient.CallResponseSpec response = mock(ChatClient.CallResponseSpec.class);
+        when(builder.build()).thenReturn(client);
+        when(client.prompt()).thenReturn(request);
+        when(request.call()).thenReturn(response);
+        when(response.content()).thenReturn("ok");
+        doAnswer(invocation -> {
+            Consumer<ChatClient.AdvisorSpec> configurer = invocation.getArgument(0);
+            configurer.accept(advisor);
+            return request;
+        }).when(request).advisors(ArgumentMatchers.<Consumer<ChatClient.AdvisorSpec>>any());
+
+        assertThat(new MyMcpAgent(builder, mock(ChatMemory.class), toolsProvider())
+            .chat("hello", "slack:D1:U1")).isEqualTo("ok");
+
+        verify(advisor).param(ChatMemory.CONVERSATION_ID, "slack:D1:U1");
     }
 
     private ToolCallbackProvider toolsProvider() {

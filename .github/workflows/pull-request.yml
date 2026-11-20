@@ -17,6 +17,7 @@ jobs:
         module:
           - sap-ccv2-devops-mcp-server
           - sap-ccv2-devops-mcp-client-telegram
+          - sap-ccv2-devops-mcp-client-slack
     defaults:
       run:
         working-directory: ${{ matrix.module }}
@@ -32,18 +33,18 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
-          cache-dependency-path: ${{ matrix.module }}/pom.xml
+          cache-dependency-path: '**/pom.xml'
 
       - name: Build, unit tests and coverage check
         if: github.event.pull_request.head.repo.full_name != github.repository
-        run: mvn -B verify
+        run: mvn -B -f ../pom.xml -pl ${{ matrix.module }} -am verify
 
       - name: Build, unit tests, coverage check and SonarCloud analysis
         if: github.event.pull_request.head.repo.full_name == github.repository
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: >
-          mvn -B verify
+          mvn -B -f ../pom.xml -pl ${{ matrix.module }} -am verify
           org.sonarsource.scanner.maven:sonar-maven-plugin:5.9.0.7382:sonar
           -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.organization=yelomarialaoui
